@@ -35,7 +35,8 @@ def _(mo):
                 (2, ' John', 'USA', 900),
                 (3, 'Georg', 'UK', 750),
                 (4, 'Martin', 'Germany', 500),
-                (5, 'Peter', 'USA', 0);
+                (5, 'Peter', 'USA', 0),
+                (6, 'Jessica', 'USA', 1000);
         """
     )
     return (customers,)
@@ -87,7 +88,8 @@ def _(mo):
             (2, 'Kevin', 'Brown', 'Marketing', '1972-11-25', 'M', 65000, 1),
             (3, 'Mary', NULL, 'Sales', '1986-01-05', 'F', 75000, 1),
             (4, 'Michael', 'Ray', 'Sales', '1977-02-10', 'M', 90000, 2),
-            (5, 'Carol', 'Baker', 'Sales', '1982-02-11', 'F', 55000, 3);
+            (5, 'Carol', 'Baker', 'Sales', '1982-02-11', 'F', 55000, 3),
+            (6, 'Jessica', 'Pegula', 'Marketing', '1981-09-16', 'F', 60000, 3);
         """
     )
     return (employees,)
@@ -359,8 +361,45 @@ def _(customers, employees, mo, orders_full, products):
     return
 
 
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""# SET Operators""")
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""## **Task 7**: encontre os empregados que não são ao mesmo tempo clientes. """)
+    return
+
+
 @app.cell
-def _():
+def _(customers, employees, mo):
+    _df = mo.sql(
+        f"""
+        SELECT firstname FROM employees
+        EXCEPT
+        SELECT first_name FROM customers;
+        """
+    )
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""## **Task 8**: encontre todos os empregados que também são clientes.""")
+    return
+
+
+@app.cell
+def _(customers, employees, mo):
+    _df = mo.sql(
+        f"""
+        SELECT firstname FROM employees
+        INTERSECT
+        SELECT first_name FROM customers;
+        """
+    )
     return
 
 
