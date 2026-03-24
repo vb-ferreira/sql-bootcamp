@@ -153,7 +153,7 @@ def _(mo):
             (10, 102, 3, 5, '2025-03-15', '2025-03-20', 'Shipped', NULL, NULL, 0, 60, '2025-03-16 23:25:15');
         """
     )
-    return
+    return (orders_full,)
 
 
 @app.cell
@@ -201,7 +201,7 @@ def _(mo):
 
 @app.cell(hide_code=True)
 def task1(mo):
-    mo.md(r"""## **Task 1**: concatene as colunas `first_name` e `country` em uma única coluna. """)
+    mo.md(r"""## **Task 1**: concatene as colunas `first_name` e `country` em uma única coluna.""")
     return
 
 
@@ -345,8 +345,57 @@ def _(customers, mo):
     return
 
 
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""# Funções de Extração""")
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""## **Task 6**: quantas ordens foram feitas por ano?""")
+    return
+
+
 @app.cell
-def _():
+def _(mo, orders_full):
+    _df = mo.sql(
+        f"""
+        SELECT 
+            YEAR(orderdate) AS ano,
+            COUNT(*) AS n_of_orders 
+        FROM orders_full
+        GROUP BY ano;
+        """
+    )
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""## **Task 7**: quais pedidos foram feitos em fevereiro? """)
+    return
+
+
+@app.cell
+def _(mo):
+    _df = mo.sql(
+        f"""
+        DESCRIBE orders_full;
+        """
+    )
+    return
+
+
+@app.cell
+def _(mo, orders_full):
+    _df = mo.sql(
+        f"""
+        SELECT * 
+        FROM orders_full
+        WHERE MONTH(orderdate) = 2;
+        """
+    )
     return
 
 
